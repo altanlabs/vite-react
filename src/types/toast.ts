@@ -11,4 +11,4 @@ export interface ToastProps {
   className?: string
 }
 
-export type ToastActionElement = React.ReactElement
+export type CustomToastActionElement = React.ReactElement
