@@ -1,24 +1,13 @@
 import * as React from "react"
-import type {
-  ToastActionElement,
-  ToastProps,
-} from "@/components/ui/toast"
+import type { ToastProps } from "@/types/toast"
 
 const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
-
-type ToasterToast = ToastProps & {
-  id: string
-  title?: React.ReactNode
-  description?: React.ReactNode
-  action?: ToastActionElement
-}
 
 interface State {
-  toasts: ToasterToast[]
+  toasts: ToastProps[]
 }
 
-export const reducer = (state: State, action: { type: string, toast?: ToasterToast, toastId?: string }) => {
+export const reducer = (state: State, action: { type: string, toast?: ToastProps, toastId?: string }) => {
   switch (action.type) {
     case "ADD_TOAST":
       return {
@@ -62,16 +51,16 @@ const listeners: Array<(state: State) => void> = []
 
 let memoryState: State = { toasts: [] }
 
-function dispatch(action: { type: string, toast?: ToasterToast, toastId?: string }) {
+function dispatch(action: { type: string, toast?: ToastProps, toastId?: string }) {
   memoryState = reducer(memoryState, action)
   listeners.forEach((listener) => {
     listener(memoryState)
   })
 }
 
-export function toast({ ...props }: Omit<ToasterToast, "id">) {
+export function toast({ ...props }: Omit<ToastProps, "id">) {
   const id = Math.random().toString(36).substr(2, 9)
-  const update = (props: ToasterToast) =>
+  const update = (props: ToastProps) =>
     dispatch({ type: "UPDATE_TOAST", toast: { ...props, id } })
   const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
 
