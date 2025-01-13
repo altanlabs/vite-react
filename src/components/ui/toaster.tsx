@@ -8,7 +8,14 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 
-export function Toaster() {
+interface ToastProps {
+  id: string
+  title?: string
+  description?: string
+  action?: React.ReactNode
+}
+
+export function Toast({ id, title, description, action }: ToastProps) {
   const { toasts } = useToast()
 
   return (
