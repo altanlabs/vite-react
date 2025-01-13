@@ -28,7 +28,6 @@ function Index() {
           {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
           {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         </Toggle>
-        <LoginForm/>
       </div>
     </main>
   );

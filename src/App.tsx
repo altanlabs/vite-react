@@ -9,14 +9,16 @@ const App = () => {
   const { theme } = useTheme();
 
   return (
-    <Theme appearance={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </Theme>
+    <div className={theme === 'dark' ? 'dark' : ''}>
+      <Theme appearance={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </Theme>
+    </div>
   );
 };
 
