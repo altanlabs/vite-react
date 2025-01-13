@@ -2,7 +2,6 @@ import "@radix-ui/themes/styles.css";
 import { Toggle } from '@radix-ui/react-toggle';
 import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
 import { useTheme } from "../hooks/use-theme";
-import { LoginForm } from "../components/blocks/login-form";
 
 function Index() {
   const { theme, setTheme } = useTheme();
