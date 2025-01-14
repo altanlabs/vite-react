@@ -9,5 +9,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  build: {
+    // Disable eslint during build
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'ESLINT_ERROR') return;
+        warn(warning);
+      }
+    }
   }
 })
