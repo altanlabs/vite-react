@@ -12,6 +12,7 @@ import { Bell, Settings, LogOut } from "lucide-react";
 import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/theme/use-theme";
+import { useEffect, useRef } from "react";
 
 interface NavItem {
   label: string;
@@ -98,13 +99,24 @@ export function Layout({
 }: LayoutProps) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const initialThemeSet = useRef(false);
 
-  // Check for theme query parameter and set theme accordingly
-  const queryParams = new URLSearchParams(location.search);
-  const themeParam = queryParams.get('theme');
-  if (themeParam === 'light' || themeParam === 'dark') {
-    setTheme(themeParam);
-  }
+  // Move theme parameter handling to useEffect
+  useEffect(() => {
+    if (initialThemeSet.current) return;
+    
+    const queryParams = new URLSearchParams(location.search);
+    const themeParam = queryParams.get('theme');
+    if (themeParam === 'light' || themeParam === 'dark') {
+      setTheme(themeParam);
+      // Remove the theme parameter from URL
+      queryParams.delete('theme');
+      const newSearch = queryParams.toString();
+      const newUrl = `${location.pathname}${newSearch ? `?${newSearch}` : ''}${location.hash}`;
+      window.history.replaceState({}, '', newUrl);
+      initialThemeSet.current = true;
+    }
+  }, [location.hash, location.pathname, location.search, setTheme]);
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
