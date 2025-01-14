@@ -1,5 +1,6 @@
 import * as React from "react"
-import { ChevronRight, File, Folder } from "lucide-react"
+import { ChevronRight, Home } from "lucide-react"
+import { Link, useLocation } from "react-router-dom"
 
 import {
   Collapsible,
@@ -9,140 +10,121 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarFooter,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-  SidebarRail,
 } from "@/components/ui/sidebar"
 
-type FileChange = {
-  file: string;
-  state: string;
+interface SidebarItem {
+  label: string;
+  href: string;
+  icon?: React.ReactNode;
+  items?: SidebarItem[];
 }
 
-// This is sample data.
-const data: { changes: FileChange[], tree: TreeItem[] } = {
-  changes: [
-    {
-      file: "README.md",
-      state: "M",
-    },
-    {
-      file: "api/hello/route.ts",
-      state: "U",
-    },
-    {
-      file: "app/layout.tsx",
-      state: "M",
-    },
-  ],
-  tree: [
-    [
-      "app",
-      [
-        "api",
-        ["hello", ["route.ts"]],
-        "page.tsx",
-        "layout.tsx",
-        ["blog", ["page.tsx"]],
-      ],
-    ],
-    [
-      "components",
-      ["ui", "button.tsx", "card.tsx"],
-      "header.tsx",
-      "footer.tsx",
-    ],
-    ["lib", ["util.ts"]],
-    ["public", "favicon.ico", "vercel.svg"],
-    ".eslintrc.json",
-    ".gitignore",
-    "next.config.js",
-    "tailwind.config.js",
-    "package.json",
-    "README.md",
-  ],
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  items?: SidebarItem[];
+  defaultOpen?: boolean;
+  companyName?: string;
+  logo?: React.ReactNode;
+  headerComponent?: React.ReactNode;
+  footerComponent?: React.ReactNode;
 }
 
-type TreeItem = string | [string, ...(string | TreeItem)[]]
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ 
+  items = [], 
+  defaultOpen = true, 
+  companyName,
+  logo,
+  headerComponent,
+  footerComponent,
+  ...props 
+}: AppSidebarProps) {
+  const location = useLocation();
+  console.log("companyName", companyName);
   return (
-    <Sidebar {...props}>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Changes</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {data.changes.map((item, index) => (
-                <SidebarMenuItem key={index}>
-                  <SidebarMenuButton>
-                    <File />
-                    {item.file}
+    <Sidebar className="w-64 border-r" {...props}>
+      {/* Company Header - always show if companyName exists */}
+      <SidebarHeader className="border-b px-6 py-4">
+        <div className="flex items-center gap-2">
+          {logo}
+          {companyName && (
+            <>
+              <span className="font-semibold text-foreground">{companyName}</span>
+              <Link to="/" className="ml-auto">
+                <Home className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+              </Link>
+            </>
+          )}
+        </div>
+      </SidebarHeader>
+
+      {/* Custom Header Component */}
+      {headerComponent}
+
+      {/* Main Menu */}
+      <SidebarContent className="flex-1 px-3 py-2">
+        <SidebarMenu>
+          {items.map((item, index) => (
+            <SidebarMenuItem key={index}>
+              {item.items ? (
+                <Collapsible defaultOpen={defaultOpen}>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton className="w-full px-3 py-2">
+                      <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      {item.icon && <span className="mr-2">{item.icon}</span>}
+                      {item.label}
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {item.items.map((subItem, subIndex) => (
+                        <Link key={subIndex} to={subItem.href}>
+                          <SidebarMenuButton
+                            className={`w-full px-3 py-2 ${
+                              location.pathname === subItem.href
+                                ? "bg-accent text-accent-foreground"
+                                : ""
+                            }`}
+                          >
+                            {subItem.icon && (
+                              <span className="mr-2">{subItem.icon}</span>
+                            )}
+                            {subItem.label}
+                          </SidebarMenuButton>
+                        </Link>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </Collapsible>
+              ) : (
+                <Link to={item.href}>
+                  <SidebarMenuButton
+                    className={`w-full px-3 py-2 ${
+                      location.pathname === item.href
+                        ? "bg-accent text-accent-foreground"
+                        : ""
+                    }`}
+                  >
+                    {item.icon && <span className="mr-2">{item.icon}</span>}
+                    {item.label}
                   </SidebarMenuButton>
-                  <SidebarMenuBadge>{item.state}</SidebarMenuBadge>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Files</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {data.tree.map((item, index) => (
-                <Tree key={index} item={item} />
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+                </Link>
+              )}
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
       </SidebarContent>
-      <SidebarRail />
+
+      {/* Footer Component */}
+      {footerComponent && (
+        <SidebarFooter className="border-t p-4">
+          {footerComponent}
+        </SidebarFooter>
+      )}
     </Sidebar>
-  )
-}
-
-function Tree({ item }: { item: TreeItem }) {
-  const [name, ...items] = Array.isArray(item) ? item : [item]
-
-  if (!items.length) {
-    return (
-      <SidebarMenuButton
-        isActive={name === "button.tsx"}
-        className="data-[active=true]:bg-transparent"
-      >
-        <File />
-        {name}
-      </SidebarMenuButton>
-    )
-  }
-
-  return (
-    <SidebarMenuItem>
-      <Collapsible
-        className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
-        defaultOpen={name === "components" || name === "ui"}
-      >
-        <CollapsibleTrigger asChild>
-          <SidebarMenuButton>
-            <ChevronRight className="transition-transform" />
-            <Folder />
-            {name}
-          </SidebarMenuButton>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          <SidebarMenuSub>
-            {items.map((subItem, index) => (
-              <Tree key={index} item={subItem} />
-            ))}
-          </SidebarMenuSub>
-        </CollapsibleContent>
-      </Collapsible>
-    </SidebarMenuItem>
-  )
+  );
 }
