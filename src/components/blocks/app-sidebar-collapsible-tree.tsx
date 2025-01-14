@@ -44,7 +44,6 @@ export function AppSidebar({
   ...props 
 }: AppSidebarProps) {
   const location = useLocation();
-  console.log("companyName", companyName);
   return (
     <Sidebar className="w-64 border-r" {...props}>
       {/* Company Header - always show if companyName exists */}
