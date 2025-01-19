@@ -1,5 +1,7 @@
 {
   "version": 2,
   "buildCommand": "bun run build",
-  "installCommand": "bun install --no-save"
+  "installCommand": "bun install --no-save",
+  "builds": [{ "src": "bun-server.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/.*", "dest": "bun-server.js" }]
 }
