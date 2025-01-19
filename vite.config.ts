@@ -11,12 +11,8 @@ export default defineConfig({
     }
   },
   build: {
-    // Disable eslint during build
     rollupOptions: {
-      onwarn(warning, warn) {
-        if (warning.code === 'ESLINT_ERROR') return;
-        warn(warning);
-      }
-    }
-  }
+      input: './src/main.tsx', 
+    },
+  },
 })
