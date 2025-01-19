@@ -1,10 +1,5 @@
 {
   "version": 2,
   "buildCommand": "bun run build",
-  "installCommand": "bun install --no-save",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  "installCommand": "bun install --no-save"
 }
