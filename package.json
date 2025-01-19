@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "DISABLE_ESLINT_PLUGIN=true tsc -b && bun build",
+    "build": "DISABLE_ESLINT_PLUGIN=true tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "bun lint"
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",
