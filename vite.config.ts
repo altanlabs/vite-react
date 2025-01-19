@@ -10,11 +10,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  build: {
-    rollupOptions: {
-      input: './src/main.tsx', 
-    },
-    outDir: 'dist',
-    assetsDir: 'assets',
-  }
 })

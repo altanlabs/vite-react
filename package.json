@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "DISABLE_ESLINT_PLUGIN=true tsc -b && vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --fix"
+    "dev": "bun vite",
+    "build": "DISABLE_ESLINT_PLUGIN=true bun tsc -b && bun vite build",
+    "preview": "bun vite preview",
+    "lint": "bun eslint . --fix"
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",
