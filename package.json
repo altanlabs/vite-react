@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "DISABLE_ESLINT_PLUGIN=true tsc -b && bun build",
     "preview": "vite preview",
-    "postinstall": "bun install --no-save",
     "lint": "bun lint"
   },
   "dependencies": {
