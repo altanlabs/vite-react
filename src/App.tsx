@@ -21,7 +21,7 @@ import { useTheme } from "./theme/use-theme";
 
 
 // CHANGE APP NAME!
-const appName = "My app";
+const appName = "My App";
 
 // Define sidebar configuration
 const dashboardSidebar = {
