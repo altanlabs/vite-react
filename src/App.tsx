@@ -19,6 +19,8 @@ import NotFound from "./pages/NotFound";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import { useTheme } from "./theme/use-theme";
 
+
+// CHANGE APP NAME!
 const appName = "My app";
 
 // Define sidebar configuration
