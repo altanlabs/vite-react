@@ -14,5 +14,10 @@ export default defineConfig({
     rollupOptions: {
       input: './src/main.tsx', 
     },
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
+  server: {
+    historyApiFallback: true,
   },
 })
