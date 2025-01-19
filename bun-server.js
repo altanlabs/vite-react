@@ -1,41 +1,55 @@
-import { serve } from "bun";
-import { exec, spawnSync } from "bun:process";
+import { createServer } from "http";
 import { readFileSync, existsSync } from "fs";
 import { resolve } from "path";
+import { execSync } from "child_process";
 
-serve({
-  async fetch(req) {
-    const url = new URL(req.url);
+const PORT = process.env.PORT || 3000;
 
-    if (url.pathname === "/reload" && req.method === "POST") {
+const server = createServer((req, res) => {
+  const url = new URL(req.url, `http://${req.headers.host}`);
+
+  // Handle GitHub Webhook for /reload endpoint
+  if (url.pathname === "/reload" && req.method === "POST") {
+    try {
       console.log("Pulling latest changes from GitHub...");
-      spawnSync("git", ["pull"]);
+      execSync("git pull");
       console.log("Installing dependencies...");
-      spawnSync("bun", ["install"]);
+      execSync("npm install");
       console.log("Reload complete!");
-      return new Response("Reloaded successfully", { status: 200 });
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("Reloaded successfully");
+    } catch (error) {
+      console.error("Error reloading:", error);
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Failed to reload");
     }
+    return;
+  }
 
-    // Serve files from the dist folder
-    let filePath = resolve(`./dist${url.pathname}`);
-    if (url.pathname === "/") {
-      filePath = resolve("./dist/index.html");
-    } else if (!existsSync(filePath)) {
-      filePath = resolve("./dist/index.html");
-    }
+  // Serve static files from the dist directory
+  let filePath = resolve(`./dist${url.pathname}`);
+  if (url.pathname === "/") {
+    filePath = resolve("./dist/index.html");
+  } else if (!existsSync(filePath)) {
+    filePath = resolve("./dist/index.html"); // Default to index.html for SPA routing
+  }
 
-    if (existsSync(filePath)) {
-      const content = readFileSync(filePath);
-      const contentType = getContentType(filePath);
-      return new Response(content, { headers: { "Content-Type": contentType } });
-    }
-
-    return new Response("File not found", { status: 404 });
-  },
+  if (existsSync(filePath)) {
+    const content = readFileSync(filePath);
+    const contentType = getContentType(filePath);
+    res.writeHead(200, { "Content-Type": contentType });
+    res.end(content);
+  } else {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("File not found");
+  }
 });
 
-console.log(`Server is running on Vercel!`);
+server.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
 
+// Helper function to determine content type
 function getContentType(filePath) {
   if (filePath.endsWith(".html")) return "text/html";
   if (filePath.endsWith(".js")) return "application/javascript";
