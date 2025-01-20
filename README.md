@@ -1,5 +1,7 @@
 # Welcome to your Altan project
 
+**Stable version**
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 ## How can I edit this code?
