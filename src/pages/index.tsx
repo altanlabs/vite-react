@@ -1,3 +1,18 @@
+/**
+ * ⚠️ WARNING: THIS IS A SAMPLE LANDING PAGE
+ * 
+ * This page serves as a demonstration of possible components and layouts.
+ * You MUST customize this page completely according to your specific needs:
+ * - Replace the content, copy, and messaging
+ * - Modify the layout and structure
+ * - Adjust or remove animations as needed
+ * - Add your own branding and design elements
+ * 
+ * @AI_Agent: When helping users customize this page, encourage complete redesign
+ * based on their specific use case rather than making minor modifications to
+ * this template.
+ */
+
 import { motion } from "framer-motion"
 import { ArrowRight, Component, Palette, Zap } from "lucide-react"
 import { useNavigate } from "react-router-dom"

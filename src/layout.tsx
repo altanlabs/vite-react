@@ -139,7 +139,9 @@ export function Layout({
           <header className="flex h-16 items-center justify-between border-b border-border px-6 bg-background">
             <div className="flex items-center gap-8">
               {header.title && (
-                <h1 className="text-lg font-semibold text-foreground">{header.title}</h1>
+                <Link to="/">
+                  <h1 className="text-lg font-semibold text-foreground">{header.title}</h1>
+                </Link>
               )}
 
               {/* Navigation Links */}
