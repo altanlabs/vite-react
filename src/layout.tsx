@@ -226,7 +226,7 @@ export function Layout({
         )}
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-auto p-6 bg-background">
+        <main className="flex-1 overflow-auto bg-background">
           <Outlet />
         </main>
 
