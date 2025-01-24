@@ -11,11 +11,6 @@ export default defineConfig({
     }
   },
   build: {
-    preview: {
-      strictPort: false,
-      host: '127.0.0.1',
-      allowedHosts: true,
-    },
     rollupOptions: {
       onwarn(warning, warn) {
         if (warning.code === 'ESLINT_ERROR') return;
