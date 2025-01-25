@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../../redux/store";
 import {
   initializeTables,
   fetchTableRecords,
@@ -12,7 +12,7 @@ import {
   selectIsLoading,
   selectTableSchema,
   selectSchemaLoading,
-} from "../../redux/slices/tables.ts";
+} from "../../../redux/slices/tables.ts";
 import { EditModal } from "./components/EditModal";
 import { DataTable } from "./components/DataTable";
 import { Record, TableSchema, Fields } from "./types";
