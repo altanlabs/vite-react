@@ -14,7 +14,6 @@ import { useTheme } from "./theme/use-theme";
 
 
 // CHANGE THIS NAME
-const appName = "My app";
 
 const App = () => {
   const { theme } = useTheme();
@@ -27,31 +26,13 @@ const App = () => {
             <SidebarProvider>
               <BrowserRouter>
                 <Routes>
-
                   <Route
                     path="/"
-                    element={
-                      <Layout
-                        showSidebar={false}
-                        header={{
-                          title: appName,
-                          navigation: [
-                            { label: "Home", href: "/" },
-                            { label: "About", href: "/about" },
-                            { label: "Contact", href: "/contact" },
-                            { label: "Pricing", href: "/pricing" },
-                          ],
-                          showNotifications: false,
-                          showUserMenu: false,
-                          showThemeToggle: true,
-                        }}
-                      />
-                    }
+                    element={<Layout showSidebar={false} showHeader={false} showFooter={false} />}
                   >
                     <Route index element={<Index />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
-
                 </Routes>
               </BrowserRouter>
             </SidebarProvider>

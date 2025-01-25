@@ -59,6 +59,8 @@ interface SidebarProps {
 
 interface LayoutProps {
   showSidebar?: boolean;
+  showHeader?: boolean;
+  showFooter?: boolean;
   sidebarConfig?: SidebarProps;
   header?: HeaderProps | false;
   footer?: FooterProps | false;
@@ -93,6 +95,8 @@ const DefaultFooter: FooterProps = {
 
 export function Layout({
   showSidebar = true,
+  showHeader = true,
+  showFooter = true,
   sidebarConfig,
   header = DefaultHeader,
   footer = DefaultFooter,
@@ -135,7 +139,7 @@ export function Layout({
       {/* Main Content */}
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
-        {header && (
+        {header && showHeader && (
           <header className="flex h-16 items-center justify-between border-b border-border px-6 bg-background">
             <div className="flex items-center gap-8">
               {header.title && (
@@ -231,7 +235,7 @@ export function Layout({
         </main>
 
         {/* Footer */}
-        {footer && (
+        {footer && showFooter && (
           <footer className="border-t border-border px-6 py-4 bg-background">
             <div className="flex items-center justify-center gap-4">
               <span className="text-sm text-muted-foreground">
