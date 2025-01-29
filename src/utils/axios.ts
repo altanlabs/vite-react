@@ -1,30 +1,22 @@
 import axios, { AxiosInstance } from 'axios';
 import { addResponseInterceptor } from './interceptors.ts';
 
-const ALTAN_API_BASE_URL = 'https://api.altan.ai';
+const ALTAN_DATABASE_API_BASE_URL = 'https://api.altan.ai/galaxia/hook/2o6RF5';
 
 // Create a custom instance of axios with specific configuration
 const altan_db: AxiosInstance = axios.create({
-  baseURL: `${ALTAN_API_BASE_URL}/tables`,
+  baseURL: ALTAN_DATABASE_API_BASE_URL,
 });
 
-// Add API key to request headers
-altan_db.interceptors.request.use(
-  (config) => {
-    config.headers['X-Altan-Key'] = process.env.ALTAN_API_KEY;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// Add Authentication later here
+
 
 // Add response interceptor
 addResponseInterceptor(altan_db);
 
 // Export constants and instances
 export {
-  ALTAN_API_BASE_URL,
+  ALTAN_DATABASE_API_BASE_URL,
   altan_db,
 };
 

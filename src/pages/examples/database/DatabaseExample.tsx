@@ -28,7 +28,7 @@ const DatabaseExample: React.FC = () => {
   const isLoading = useSelector((state: RootState) => selectIsLoading(state));
   const schemaLoading = useSelector((state: RootState) => selectSchemaLoading(state));
 
-  const tables = ["users", "posts"];
+  const tables = ["users", "products"];
 
   useEffect(() => {
     dispatch(initializeTables());

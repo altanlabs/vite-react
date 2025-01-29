@@ -46,6 +46,7 @@ interface QueryParams {
   sort?: unknown[];
   limit?: number;
   pageToken?: string;
+  amount?: string
 }
 
 // Initial state structure
@@ -88,6 +89,7 @@ export const fetchTableRecords = createAsyncThunk(
       sort: queryParams.sort || [],
       limit: queryParams.limit || 100,
       page_token: queryParams.pageToken,
+      amount: queryParams.amount || 'all'
     });
 
     return {

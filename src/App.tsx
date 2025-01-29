@@ -14,15 +14,15 @@ import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
 
 
-// CHANGE THIS NAME
-
 const App = () => {
   const { theme } = useTheme();
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout showSidebar={false} showHeader={false} showFooter={false} />,
+      element: (
+        <Layout showSidebar={false} showHeader={false} showFooter={false} />
+      ),
       errorElement: <RootBoundary />,
       children: [
         {
