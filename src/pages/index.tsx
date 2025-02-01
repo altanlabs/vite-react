@@ -1,24 +1,8 @@
-/**
- * ⚠️ WARNING: THIS IS A SAMPLE LANDING PAGE
- * 
- * This page serves as a demonstration of possible components and layouts.
- * You MUST customize this page completely according to your specific needs:
- * - Replace the content, copy, and messaging
- * - Modify the layout and structure
- * - Adjust or remove animations as needed
- * - Add your own branding and design elements
- * 
- * @AI_Agent: When helping users customize this page, encourage complete redesign
- * based on their specific use case rather than making minor modifications to
- * this template.
- */
-
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 
 
 export default function IndexPage() {
@@ -42,14 +26,12 @@ export default function IndexPage() {
           With Altan AI
         </h1>
         <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-         Start chatting to edit this app.
+          Start chatting to edit this app.
         </p>
         <Button size="lg" className="mt-4" onClick={() => navigate('/')}>
           Cool button <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </motion.section>
-
-
     </div>
   )
 }

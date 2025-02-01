@@ -3,16 +3,12 @@ import "@radix-ui/themes/styles.css";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/theme/theme-provider";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { Provider } from "react-redux";
-import { store } from "./redux/store.ts";
 import RootBoundary from "./components/errors/RootBoundary";
 
 import { Layout } from "./layout";
 import Index from "./pages/index";
 import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
-
 
 const App = () => {
   const { theme } = useTheme();
@@ -38,17 +34,13 @@ const App = () => {
   ]);
 
   return (
-    <Provider store={store}>
-      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-        <Theme appearance={theme === "system" ? "light" : theme}>
-          <div className={theme}>
-            <SidebarProvider>
-              <RouterProvider router={router} />
-            </SidebarProvider>
-          </div>
-        </Theme>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <Theme appearance={theme === "system" ? "light" : theme}>
+        <div className={theme}>
+          <RouterProvider router={router} />
+        </div>
+      </Theme>
+    </ThemeProvider>
   );
 };
 
