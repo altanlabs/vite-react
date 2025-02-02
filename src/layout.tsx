@@ -93,7 +93,7 @@ const DefaultFooter: FooterProps = {
   ],
 };
 
-export function Layout({
+export default function Layout({
   showSidebar = true,
   showHeader = true,
   showFooter = true,

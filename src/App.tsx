@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/theme/theme-provider";
 import RootBoundary from "./components/errors/RootBoundary";
 
-import { Layout } from "./layout";
+import Layout from "./layout";
 import Index from "./pages/index";
 import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
