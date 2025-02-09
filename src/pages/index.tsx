@@ -20,7 +20,7 @@ export default function IndexPage() {
         <Badge variant="secondary" className="mb-4">
           Welcome to Your New App
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-foreground">
           Build Beautiful Interfaces
           <br />
           With Altan AI

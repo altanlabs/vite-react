@@ -1,5 +1,4 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { AppSidebar } from "@/components/blocks/app-sidebar-collapsible-tree";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +12,7 @@ import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/theme/use-theme";
 import { useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   label: string;
@@ -93,6 +93,34 @@ const DefaultFooter: FooterProps = {
   ],
 };
 
+const Sidebar = ({ 
+  items,
+  companyName = "Company",
+  className 
+}: { 
+  items?: SidebarItem[];
+  companyName?: string;
+  className?: string;
+}) => {
+  return (
+    <div className={cn("w-64 p-4 flex flex-col gap-4", className)}>
+      <div className="font-semibold text-lg">{companyName}</div>
+      <nav className="flex flex-col gap-2">
+        {items?.map((item, index) => (
+          <Link
+            key={index}
+            to={item.href}
+            className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent text-muted-foreground hover:text-accent-foreground"
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </Link>
+        ))}
+      </nav>
+    </div>
+  );
+};
+
 export default function Layout({
   showSidebar = true,
   showHeader = true,
@@ -123,21 +151,18 @@ export default function Layout({
   }, [location.hash, location.pathname, location.search, setTheme]);
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
-      {/* Optional Sidebar */}
+    <div className="min-h-screen flex">
+      {/* Simpler Sidebar */}
       {showSidebar && (
-        <AppSidebar 
-          className="h-full border-r border-border" 
-          items={sidebarConfig?.items} 
-          defaultOpen={sidebarConfig?.defaultOpen}
+        <Sidebar 
+          className="border-r border-border"
+          items={sidebarConfig?.items}
           companyName={sidebarConfig?.companyName}
-          logo={sidebarConfig?.logo}
-          footerComponent={sidebarConfig?.footerComponent}
         />
       )}
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col">
+      <div className="flex-1 flex flex-col min-h-screen">
         {/* Configurable Header */}
         {header && showHeader && (
           <header className="flex h-16 items-center justify-between border-b border-border px-6 bg-background">
