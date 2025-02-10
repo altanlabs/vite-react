@@ -6,7 +6,6 @@ import RootBoundary from "./components/errors/RootBoundary";
 const routes = [
   {
     path: "/",
-    element: (<></>),
     errorElement: <RootBoundary />,
     children: [
       {
