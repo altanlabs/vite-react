@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./layout";
 import Index from "./pages/index";
 import NotFound from "./pages/NotFound";
 import RootBoundary from "./components/errors/RootBoundary";
@@ -7,9 +6,7 @@ import RootBoundary from "./components/errors/RootBoundary";
 const routes = [
   {
     path: "/",
-    element: (
-      <Layout showSidebar={false} showHeader={false} showFooter={false} />
-    ),
+    element: (<></>),
     errorElement: <RootBoundary />,
     children: [
       {
