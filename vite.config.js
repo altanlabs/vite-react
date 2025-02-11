@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite';
+
+// DO NOT CHANGE '@vitejs/plugin-react-swc' if not the previews will stop working. 
+
 import react from '@vitejs/plugin-react-swc';
 import * as path from 'path';
-// https://vitejs.dev/config/
+
 export default defineConfig({
     plugins: [react()],
     resolve: {
