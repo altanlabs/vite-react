@@ -15,9 +15,16 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Check URL parameters first
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme') as Theme;
+    if (themeParam && ['dark', 'light', 'system'].includes(themeParam)) {
+      return themeParam;
+    }
+    // Fall back to localStorage or default
+    return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -36,6 +43,20 @@ export function ThemeProvider({
 
     root.classList.add(theme);
   }, [theme]);
+
+  // Update theme when URL changes
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const themeParam = urlParams.get('theme') as Theme;
+      if (themeParam && ['dark', 'light', 'system'].includes(themeParam)) {
+        setTheme(themeParam);
+      }
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
+  }, []);
 
   const value = {
     theme,
