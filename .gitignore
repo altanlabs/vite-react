@@ -23,4 +23,16 @@ dist-ssr
 *.sln
 *.sw?
 
+# Build files
+build/
+dist/
+out/
+.next/
+*.bundle.js
+*.min.js
+*.min.css
+
+# TypeScript cache
+tsconfig.tsbuildinfo
+bun.lockb
 pnpm-lock.yaml

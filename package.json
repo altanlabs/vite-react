@@ -59,7 +59,8 @@
     "recharts": "^2.15.0",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.0",
-    "vaul": "^1.1.2"
+    "vaul": "^1.1.2",
+    "vite-plugin-pwa": "^0.21.1"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.12.1",

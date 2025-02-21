@@ -54,7 +54,7 @@ export function ThemeProvider({
       }
     };
 
-    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('popstate', handleUrlChange, { passive: true });
     return () => window.removeEventListener('popstate', handleUrlChange);
   }, []);
 
