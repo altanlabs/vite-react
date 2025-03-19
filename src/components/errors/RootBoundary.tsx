@@ -2,8 +2,6 @@ import * as React from 'react';
 import { memo } from 'react';
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import { AlertCircle, RefreshCw, Copy, Check } from 'lucide-react';
-import { Card, Text, Button, Flex, Heading } from '@radix-ui/themes';
-
 
 const RootBoundary = () => {
   const error = useRouteError();
@@ -28,60 +26,50 @@ const RootBoundary = () => {
   };
 
   return (
-    <Flex className="fixed inset-0" align="center" justify="center" p="4">
-      <Card size="4" style={{ maxWidth: '32rem' }}>
-        <Flex direction="column" gap="4" align="center">
-          <Flex gap="2" align="center">
+    <div className="fixed inset-0 flex items-center justify-center p-4">
+      <div className="max-w-[32rem] p-6 border rounded-lg shadow-md bg-white">
+        <div className="flex flex-col gap-4 items-center">
+          <div className="flex gap-2 items-center">
             <AlertCircle />
-            <Heading size="5">Error Detected</Heading>
-          </Flex>
+            <h2 className="text-xl font-semibold">Error Detected</h2>
+          </div>
           
-          <Text color="gray" size="3">
+          <p className="text-gray-600 text-sm">
             Try to copy and send it to the AI to fix it. 
-          </Text>
+          </p>
 
-          <Text color="gray" size="2">
+          <p className="text-gray-600 text-xs">
             {errorMessage}
-          </Text>
+          </p>
 
           {error instanceof Error && (
-            <Card variant="surface" style={{ width: '100%', position: 'relative' }}>
-              <Button
-                variant="ghost"
+            <div className="w-full relative border rounded p-4">
+              <button
+                className="absolute right-2 top-2 p-1 hover:bg-gray-100 rounded"
                 onClick={copyError}
-                style={{ 
-                  position: 'absolute',
-                  right: 8,
-                  top: 8
-                }}
               >
                 {copied ? (
                   <Check width="16" height="16" />
                 ) : (
                   <Copy width="16" height="16" />
                 )}
-              </Button>
-              <Text size="1" color="gray" style={{ 
-                maxHeight: '50vh',
-                overflow: 'auto',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word'
-              }}>
+              </button>
+              <pre className="text-xs text-gray-600 max-h-[50vh] overflow-auto whitespace-pre-wrap break-words">
                 {error.stack}
-              </Text>
-            </Card>
+              </pre>
+            </div>
           )}
 
-          <Button 
-            variant="surface" 
+          <button 
+            className="flex items-center gap-2 px-4 py-2 border rounded hover:bg-gray-100"
             onClick={() => window.location.reload()}
           >
             <RefreshCw width="16" height="16" />
             Reload
-          </Button>
-        </Flex>
-      </Card>
-    </Flex>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
