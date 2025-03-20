@@ -1,3 +1,5 @@
+{/* THIS IS A DEMO SAMPLE WHILE THE APP IS SPINNING, PLEASE REPLACE IT COMPLETELY */}
+
 import { TextShimmer } from "@/components/ui/TextShimmer";
 import { DidYouKnow } from "@/components/ui/DidYouKnow";
 import { SparklesCore } from "@/components/ui/Sparkles";
