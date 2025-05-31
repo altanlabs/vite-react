@@ -14,7 +14,7 @@ function App() {
               className="font-mono text-base sm:text-lg"
               duration={1.4}
             >
-              Generating your app...
+              Generating interface...
             </TextShimmer>
           </div>
 
