@@ -18,5 +18,5 @@ const routes = [
   },
 ];
 
-const basename = (window as any)._APP_BASENAME_ || "/";
+const basename = (window as any).__APP_BASENAME__ || "/";
 export const router = createBrowserRouter(routes, { basename });
